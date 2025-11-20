@@ -1,7 +1,7 @@
-﻿#include "PaintApp.h"
+﻿#include "Application.h"
 
 int main() {
-    PaintApp app(800, 600);
+    Application app;
     app.run();
     return 0;
 }
