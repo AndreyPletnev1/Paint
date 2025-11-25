@@ -1,18 +1,19 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <stack>
-
+using namespace std;
+using namespace sf;
 class Canvas {
 private:
-    sf::RenderTexture m_texture;
-    sf::Sprite m_sprite;
+    RenderTexture m_texture;
+    Sprite m_sprite;
 
 public:
     Canvas(unsigned int width, unsigned int height);
 
     //Припечатывание к канвасу рисунка
-    void stamp(const sf::Drawable& drawable);
-    void draw(sf::RenderWindow& window);
+    void stamp(const Drawable& drawable);
+    void draw(RenderWindow& window);
     void clear();
-    void floodFill(int x, int y, sf::Color newColor);
+    void floodFill(int x, int y, Color newColor);
 };

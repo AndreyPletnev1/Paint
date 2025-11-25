@@ -4,22 +4,23 @@
 #include "Canvas.h"
 #include "UI.h"
 #include "Tools.h"
+using namespace std;
+using namespace sf;
+    class Application {
+    private:
+        RenderWindow m_window;
+        Canvas m_canvas;
+        ToolSelector m_toolSelector;
 
-class Application {
-private:
-    sf::RenderWindow m_window;
-    Canvas m_canvas;
-    ToolSelector m_toolSelector;
+        Slider sliderR, sliderG, sliderB;
+        RectangleShape colorPreview;
+        //unique - сам выделяет память, сам освобождает, только он может владеть обьектом.
+        unique_ptr<RectTool> t_rect;
+        unique_ptr<CircleTool> t_circle;
+        unique_ptr<LineTool> t_line;
+        unique_ptr<PencilTool> t_pencil;
 
-    Slider sliderR, sliderG, sliderB;
-    sf::RectangleShape colorPreview;
-
-    std::unique_ptr<RectTool> t_rect;
-    std::unique_ptr<CircleTool> t_circle;
-    std::unique_ptr<LineTool> t_line;
-    std::unique_ptr<PencilTool> t_pencil;
-
-    bool m_isDrawing;
+        bool m_isDrawing;
 
 public:
     Application();
@@ -30,6 +31,6 @@ private:
     void update();
     void render();
 
-    sf::Color getCurrentColor();
+    Color getCurrentColor();
     ToolLogic* getCurrentTool();
 };

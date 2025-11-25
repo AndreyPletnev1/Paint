@@ -6,35 +6,35 @@ Canvas::Canvas(unsigned int width, unsigned int height) {
     m_sprite.setTexture(m_texture.getTexture());
 }
 
-void Canvas::stamp(const sf::Drawable& drawable) {
+void Canvas::stamp(const Drawable& drawable) {
     m_texture.draw(drawable);
-    m_texture.display();
+        
 }
 
-void Canvas::draw(sf::RenderWindow& window) {
+void Canvas::draw(RenderWindow& window) {
     window.draw(m_sprite);
 }
 
 void Canvas::clear() {
-    m_texture.clear(sf::Color::White);
+    m_texture.clear(Color::White);
     m_texture.display();
 }
 
-void Canvas::floodFill(int x, int y, sf::Color newColor) {
-    sf::Image image = m_texture.getTexture().copyToImage();//Копируем содержимое, чтобы изменить
+void Canvas::floodFill(int x, int y, Color newColor) {
+    Image image = m_texture.getTexture().copyToImage();//Копируем содержимое, чтобы изменить
     unsigned int w = image.getSize().x;
     unsigned int h = image.getSize().y;
 
     if (x < 0 || x >= (int)w || y < 0 || y >= (int)h) return;//Если x,y за пределами холста, завершаем
 
-    sf::Color targetColor = image.getPixel(x, y);// Цвет пикселя, по которому кликнули
+    Color targetColor = image.getPixel(x, y);
     if (targetColor == newColor) return;
 
-    std::stack<sf::Vector2i> stack;//Стек, чтобы без рекурсии идти по пикселям
+    stack<Vector2i> stack;//Стек, чтобы без рекурсии идти по пикселям
     stack.push({ x, y });
 
     while (!stack.empty()) {
-        sf::Vector2i p = stack.top();
+        Vector2i p = stack.top();
         stack.pop();
 
         if (p.x < 0 || p.x >= (int)w || p.y < 0 || p.y >= (int)h) continue; 
@@ -49,9 +49,9 @@ void Canvas::floodFill(int x, int y, sf::Color newColor) {
     }
 
     // Обновляем текстуру
-    sf::Texture tempTex;
+    Texture tempTex;
     tempTex.loadFromImage(image);
-    sf::Sprite tempSprite(tempTex);
+    Sprite tempSprite(tempTex);
     m_texture.draw(tempSprite);
     m_texture.display();
 }
